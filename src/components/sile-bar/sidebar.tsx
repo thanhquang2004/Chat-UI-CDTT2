@@ -13,17 +13,24 @@ const Sidebar = () => {
             justifyContent: "space-between",
             flexDirection: "column",
             height: "100%",
+            width: "100%",
           }}
         >
-          <IconButton sx={{mt: "20px"}}>
-            <Avatar sx={{ width: "50px", height: "50px" }}/>
+          <IconButton sx={{ mt: "20px" }}>
+            <Avatar sx={{ width: "50px", height: "50px" }} />
           </IconButton>
-          <Stack sx={{height: "80%"}}>
-            <IconButton size="large" sx={{width: '60px', height:"60px", borderRadius: 0}}>
+          <Stack sx={{ height: "70%" }}>
+            <IconButton
+              size="large"
+              sx={{ width: "80px", height: "70px", borderRadius: 0 }}
+            >
               <ForumIcon sx={{ width: "35px", height: "35px" }} />
             </IconButton>
           </Stack>
-          <IconButton sx={{mb: "20px"}}>
+          <IconButton
+            size="large"
+            sx={{ width: "80px", height: "70px", borderRadius: 0 }}
+          >
             <SettingsIcon sx={{ width: "35px", height: "35px" }} />
           </IconButton>
         </Toolbar>
