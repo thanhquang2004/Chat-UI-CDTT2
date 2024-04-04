@@ -1,4 +1,4 @@
-import { Divider, Grid, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import ChatListHeader from "./chat-list-header/chat-list-header";
 import { Box } from "@mui/system";
 import ChatListItem from "./chat-list-item/chat-list-item";
@@ -26,8 +26,8 @@ const ChatList = () => {
         />
         <Box sx={{
           width: "100%",
-          height: "100vh",
-          maxHeight: "100vh",
+          height: "80vh",
+          maxHeight: "80vh",
           overflowY: "auto",
         }}>
           <ChatListItem />

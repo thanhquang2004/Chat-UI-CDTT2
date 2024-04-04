@@ -19,7 +19,7 @@ const Sidebar = () => {
           <IconButton sx={{ mt: "20px" }}>
             <Avatar sx={{ width: "50px", height: "50px" }} />
           </IconButton>
-          <Stack sx={{ height: "70%" }}>
+          <Stack sx={{ height: "75%" }}>
             <IconButton
               size="large"
               sx={{ width: "80px", height: "70px", borderRadius: 0 }}
