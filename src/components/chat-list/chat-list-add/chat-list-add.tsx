@@ -13,6 +13,9 @@ import {
 import { Box, Stack } from "@mui/system";
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { useCreateChat } from "../../../hooks/useCreateChat";
+import router from "../../Routes";
+import { UNKNOWN_ERROR_MESSAGE } from "../../../constants/errors";
 
 interface ChatListAddProps {
   open: boolean;
@@ -23,6 +26,9 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
   const [error, setError] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [isPrivate, setIsPrivate] = useState(true);
+  const [createChat] = useCreateChat();
+  const [search, setSearch] = useState("");
+
 
   const onClose = () => {
     setError("");
@@ -64,12 +70,21 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
             />
           </FormGroup>
           {isPrivate ? (
-            <Paper sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
-              <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search Users" />
-              <IconButton sx={{ p: "10px" }}>
-                <SearchIcon />
-              </IconButton>
-            </Paper>
+            <div>
+              <Paper
+                sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}
+              >
+                <InputBase
+                  sx={{ ml: 1, flex: 1 }}
+                  placeholder="Search Users"
+                  onChange={(event) => setSearch(event.target.value)}
+                />
+                <IconButton sx={{ p: "10px" }} onClick={() => {}}>
+                  <SearchIcon />
+                </IconButton>
+              </Paper>
+              
+            </div>
           ) : (
             <TextField
               label="Name"
@@ -81,12 +96,31 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
           <Button
             variant="contained"
             onClick={async () => {
-              if (!name.length) {
-                setError("Name is required");
-                return;
+              if (isPrivate) {
+              } else {
+                if (!name.length) {
+                  setError("Name is required");
+                  return;
+                }
+                console.log(name);
+                onClose();
+                try {
+                  const chat = await createChat({
+                    variables: {
+                      createChatInput: {
+                        name,
+                        isPrivate,
+                        member: [],
+                      },
+                    },
+                  });
+                  onClose();
+                  router.navigate(`/chats/${chat.data?.createChat._id}`);
+                } catch (error) {
+                  setError(UNKNOWN_ERROR_MESSAGE);
+                  console.log(error);
+                }
               }
-              console.log(name);
-              onClose();
             }}
           >
             Submit

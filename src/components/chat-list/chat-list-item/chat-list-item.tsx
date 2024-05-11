@@ -9,16 +9,23 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import "./chat-list-item.css";
+import { Chat } from "../../../gql/graphql";
+import router from "../../Routes";
 
 interface ChatListItemProps {
-  setSelectedChatId: (id: string) => void;
+  chat: Chat;
+  selected: boolean;
 }
 
-const ChatListItem = () => {
+const ChatListItem = ({ chat, selected }: ChatListItemProps) => {
   return (
     <>
       <ListItem alignItems="flex-start" disablePadding>
         <ListItemButton
+          onClick={() => {
+            router.navigate(`/chats/${chat._id}`);
+          }}
+          selected={selected}
           sx={{
             borderRadius: "10px",
             "&:hover": {
@@ -30,7 +37,7 @@ const ChatListItem = () => {
             <Avatar />
           </ListItemAvatar>
           <ListItemText
-            primary="John Doe"
+            primary={chat.name}
             secondary={
               <Box
                 sx={{
@@ -46,11 +53,11 @@ const ChatListItem = () => {
                   variant="body2"
                   color="text.primary"
                 >
-                  John Doe
+                  {chat.latestMessage?.user.username}
                 </Typography>
                 <Typography>
                   <div className="content">
-                    {":  Hello, how are you doing?"}
+                    {": " + (chat.latestMessage?.content || "")}
                   </div>
                 </Typography>
               </Box>

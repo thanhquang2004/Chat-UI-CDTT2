@@ -44,7 +44,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "black",
-  width: "360px",
+  width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -56,7 +56,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const ChatListHeader: React.FC<ChatListHeaderProps> = ({ handleAddChat, onSearch }) => {
+const ChatListHeader: React.FC<ChatListHeaderProps> = ({
+  handleAddChat,
+  onSearch,
+}) => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     onSearch(query);
@@ -91,16 +94,18 @@ const ChatListHeader: React.FC<ChatListHeaderProps> = ({ handleAddChat, onSearch
             />
           </IconButton>
         </Grid>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search conversation"
-            inputProps={{ "aria-label": "search" }}
-            onChange={handleSearch}
-          />
-        </Search>
+        <Grid width="80%">
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search conversation"
+              inputProps={{ "aria-label": "search" }}
+              onChange={handleSearch}
+            />
+          </Search>
+        </Grid>
       </Toolbar>
     </Grid>
   );
